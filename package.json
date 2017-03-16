@@ -1,0 +1,29 @@
+{
+  "name": "broccoli-viz-sunburst",
+  "version": "1.0.0",
+  "description": "Sunburst visualization of Broccoli instrumentation files using D3.",
+  "main": "index.js",
+  "bin": {
+    "broccoli-viz-sunburst": "./bin/broccoli-viz-sunburst"
+  },
+  "files": [
+    "index.js",
+    "lib/",
+    "bin/"
+  ],
+  "scripts": {
+    "test": "mocha test"
+  },
+  "keywords": [
+    "broccoli",
+    "broccoli-viz",
+    "d3"
+  ],
+  "author": "Ben Blank",
+  "license": "BSD-3-Clause",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
