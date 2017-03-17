@@ -21,6 +21,15 @@ describe('createNodeData', () => {
     },
   };
 
+  const broccoliNodeOld = {
+    _id: 535,
+    id: { name: 'foo' },
+    stats: {
+      fs: { lstatSync: { count: 10, time: 200 } },
+      time: { self: 100 },
+    },
+  };
+
   const dataObject = {
     fsCount: 1,
     fsTime: 2,
@@ -32,8 +41,21 @@ describe('createNodeData', () => {
     totalSelfTime: 6,
   };
 
-  it('converts a Broccoli node', () => {
+  it('converts an `instrumentation.*.json`-style node', () => {
     expect(createNodeData(broccoliNodeComplete, [])).to.deep.equal({
+      fsCount: 10,
+      fsTime: 200,
+      id: 535,
+      label: 'foo',
+      selfTime: 100,
+      totalFsCount: 10,
+      totalFsTime: 200,
+      totalSelfTime: 100,
+    });
+  });
+
+  it('converts an `broccoli-viz.*.json`-style node', () => {
+    expect(createNodeData(broccoliNodeOld, [])).to.deep.equal({
       fsCount: 10,
       fsTime: 200,
       id: 535,
