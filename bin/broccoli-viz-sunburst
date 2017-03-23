@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const fs = require('fs');
+const { buildTree, createNodeData, getNodesById } = require('..');
+
+function timeInMs([seconds, ns]) {
+  return Math.round(seconds * 1e3 + ns / 1e6);
+}
+
+const instrumentationFiles = process.argv.slice(2);
+const trees = {};
+
+for (const instrumentationFile of instrumentationFiles) {
+  const startTime = process.hrtime();
+
+  process.stdout.write(`Processing '${instrumentationFile}'… `, 'utf8');
+
+  const instrumentation = JSON.parse(fs.readFileSync(instrumentationFile, 'utf8'));
+  const nodes = instrumentation.nodes;
+
+  process.stdout.write(`found ${nodes.length} nodes… `, 'utf8');
+
+  const rootId = typeof nodes[0].id !== 'undefined' ? nodes[0].id : nodes[0]._id;
+  const nodesById = getNodesById(nodes);
+
+  trees[instrumentationFile] = buildTree(nodesById, rootId, createNodeData);
+
+  process.stdout.write(`finished in ${timeInMs(process.hrtime(startTime))}ms.\n`);
+}
+
+fs.writeFileSync('trees.jsonp', `loadData(${JSON.stringify(trees)});`, 'utf8');
