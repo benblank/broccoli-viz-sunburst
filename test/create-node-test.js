@@ -2,10 +2,10 @@
 
 'use strict';
 
-const { createNodeData, getFsStat, getTotal } = require('../lib/create-node-data');
+const { createNode, getFsStat, getTotal } = require('../lib/create-node');
 const expect = require('chai').expect;
 
-describe('createNodeData', () => {
+describe('createNode', () => {
   const broccoliNodeComplete = {
     id: 535,
     label: { name: 'foo' },
@@ -32,7 +32,7 @@ describe('createNodeData', () => {
     },
   };
 
-  const dataObject = {
+  const d3Node = {
     fsCount: 1,
     fsTime: 2,
     id: 535,
@@ -44,7 +44,7 @@ describe('createNodeData', () => {
   };
 
   it('converts an `instrumentation.*.json`-style node', () => {
-    expect(createNodeData(broccoliNodeComplete, [])).to.deep.equal({
+    expect(createNode(broccoliNodeComplete, [])).to.deep.equal({
       fsCount: 10,
       fsTime: 200,
       id: 535,
@@ -57,7 +57,7 @@ describe('createNodeData', () => {
   });
 
   it('converts an `broccoli-viz.*.json`-style node', () => {
-    expect(createNodeData(broccoliNodeOld, [])).to.deep.equal({
+    expect(createNode(broccoliNodeOld, [])).to.deep.equal({
       fsCount: 10,
       fsTime: 200,
       id: 535,
@@ -70,7 +70,7 @@ describe('createNodeData', () => {
   });
 
   it('correctly handles nodes without FS stats', () => {
-    expect(createNodeData(broccoliNodeWithoutFs, [])).to.deep.equal({
+    expect(createNode(broccoliNodeWithoutFs, [])).to.deep.equal({
       fsCount: 0,
       fsTime: 0,
       id: 535,
@@ -83,7 +83,7 @@ describe('createNodeData', () => {
   });
 
   it('includes child data in totals', () => {
-    expect(createNodeData(broccoliNodeComplete, [ dataObject ])).to.deep.equal({
+    expect(createNode(broccoliNodeComplete, [ d3Node ])).to.deep.equal({
       fsCount: 10,
       fsTime: 200,
       id: 535,

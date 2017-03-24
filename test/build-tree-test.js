@@ -40,46 +40,45 @@ describe('buildTree', () => {
   });
 
   const d3Node = {
-    children: [],
-    data: {},
+    children: []
   };
 
   it('produces a D3 node', () => {
-    const createNodeData = () => d3Node.data;
+    const createNode = () => d3Node;
     const recurse = () => {};
 
-    const actual = buildTree(broccoliNodeMap, 626, createNodeData, recurse);
+    const actual = buildTree(broccoliNodeMap, 626, createNode, recurse);
 
     expect(actual).to.deep.equal(d3Node);
   });
 
   it('produces a D3 tree', () => {
-    const createNodeData = () => d3Node.data;
+    const createNode = () => d3Node;
     const recurse = () => d3Node;
 
-    const actual = buildTree(broccoliNodeMap, 535, createNodeData, recurse);
+    const actual = buildTree(broccoliNodeMap, 535, createNode, recurse);
 
-    expect(actual).to.deep.equal({ children: [ d3Node, d3Node ], data: d3Node.data });
+    expect(actual).to.deep.equal({ children: [ d3Node, d3Node ] });
   });
 
   it('recurses into each child', () => {
-    const createNodeData = () => d3Node.data;
+    const createNode = () => d3Node;
     const recurse = sinon.stub().returns(d3Node);
 
-    buildTree(broccoliNodeMap, 535, createNodeData, recurse);
+    buildTree(broccoliNodeMap, 535, createNode, recurse);
 
     expect(recurse.callCount).to.equal(2);
-    expect(recurse.firstCall.args).to.deep.equal([ broccoliNodeMap, 626, createNodeData, recurse ]);
-    expect(recurse.secondCall.args).to.deep.equal([ broccoliNodeMap, 717, createNodeData, recurse ]);
+    expect(recurse.firstCall.args).to.deep.equal([ broccoliNodeMap, 626, createNode, recurse ]);
+    expect(recurse.secondCall.args).to.deep.equal([ broccoliNodeMap, 717, createNode, recurse ]);
   });
 
-  it('calls createNodeData', () => {
-    const createNodeData = sinon.stub().returns(d3Node.data);
+  it('calls createNode', () => {
+    const createNode = sinon.stub().returns(d3Node);
     const recurse = () => d3Node;
 
-    buildTree(broccoliNodeMap, 535, createNodeData, recurse);
+    buildTree(broccoliNodeMap, 535, createNode, recurse);
 
-    expect(createNodeData.callCount).to.equal(1);
-    expect(createNodeData.firstCall.args).to.deep.equal([ broccoliNodeMap.get(535), [ {}, {} ] ]);
+    expect(createNode.callCount).to.equal(1);
+    expect(createNode.firstCall.args).to.deep.equal([ broccoliNodeMap.get(535), [ d3Node, d3Node ] ]);
   });
 });

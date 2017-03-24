@@ -6,7 +6,7 @@
 
 const fs = require('fs-extra');
 const path = require('path');
-const { buildTree, createNodeData, getNodesById } = require('..');
+const { buildTree, createNode, getNodesById } = require('..');
 
 function timeInMs([seconds, ns]) {
   return Math.round(seconds * 1e3 + ns / 1e6);
@@ -28,7 +28,7 @@ for (const instrumentationFile of instrumentationFiles) {
   const rootId = typeof nodes[0].id !== 'undefined' ? nodes[0].id : nodes[0]._id;
   const nodesById = getNodesById(nodes);
 
-  trees[instrumentationFile] = buildTree(nodesById, rootId, createNodeData);
+  trees[instrumentationFile] = buildTree(nodesById, rootId, createNode);
 
   process.stdout.write(`finished in ${timeInMs(process.hrtime(startTime))}ms.\n`);
 }

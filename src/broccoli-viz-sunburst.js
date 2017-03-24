@@ -34,13 +34,13 @@ function loadData(trees) {
 
   let root = d3.hierarchy(trees['instrumentation.build.0.json']);
 
-  root.sum(function(d) { return d.data.selfTime; });
+  root.sum(function(d) { return d.selfTime; });
 
   svg.selectAll('path')
     .data(partition(root).descendants())
     .enter().append('path')
     .attr('d', arc)
-    .style('fill', function(d) { return color(d.data.data.label); })
+    .style('fill', function(d) { return color(d.data.label); })
     .on('click', click)
     .on('mouseover', renderTooltip)
     .on('mousemove', anchorTooltip)
@@ -74,11 +74,11 @@ function loadData(trees) {
 
   function renderTooltip(d) {
     const text = [
-      d.data.data.label,
-      'Self time: ' + timeInMs(d.data.data.selfTime) + 'ms',
-      'Total time: ' + timeInMs(d.data.data.totalSelfTime) + 'ms',
-      'I/O time: ' + timeInMs(d.data.data.fsTime) + 'ms',
-      'I/O count: ' + d.data.data.fsCount
+      d.data.label,
+      'Self time: ' + timeInMs(d.data.selfTime) + 'ms',
+      'Total time: ' + timeInMs(d.data.totalSelfTime) + 'ms',
+      'I/O time: ' + timeInMs(d.data.fsTime) + 'ms',
+      'I/O count: ' + d.data.fsCount
     ];
 
     tooltip.text(text.join('\n'));
