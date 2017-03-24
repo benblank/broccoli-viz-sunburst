@@ -1,3 +1,5 @@
+/* eslint-env mocha, node */
+
 'use strict';
 
 const { createNodeData, getFsStat, getTotal } = require('../lib/create-node-data');

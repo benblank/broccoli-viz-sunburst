@@ -13,7 +13,7 @@
     "bin/"
   ],
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test && eslint bin/broccoli-viz-sunburst */*.js"
   },
   "keywords": [
     "broccoli",
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "eslint": "^3.18.0",
     "mocha": "^3.2.0",
     "sinon": "^2.0.0"
   }

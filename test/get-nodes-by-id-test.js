@@ -1,3 +1,5 @@
+/* eslint-env mocha, node */
+
 'use strict';
 
 const getNodesById = require('../lib/get-nodes-by-id');
