@@ -11,20 +11,13 @@ function loadData(trees) {
   const y = d3.scaleLinear().range([0, radius]);
   const color = d3.scaleOrdinal(d3.schemeCategory20);
   const partition = d3.partition();
+  const tooltip = d3.select('#tooltip');
 
   const arc = d3.arc()
     .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x0))); })
     .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x1))); })
     .innerRadius(function(d) { return Math.max(0, y(d.y0)); })
     .outerRadius(function(d) { return Math.max(0, y(d.y1)); });
-
-  const tooltip = d3.select('body').append('div')
-    .style('display', 'none')
-    .style('background', 'white')
-    .style('border', '1px solid black')
-    .style('padding', '0.3em 0.5em')
-    .style('position', 'absolute')
-    .style('white-space', 'pre');
 
   const svg = d3.select('body').append('svg')
     .attr('width', width)
@@ -78,11 +71,11 @@ function loadData(trees) {
       'Self time: ' + timeInMs(d.data.selfTime) + 'ms',
       'Total time: ' + timeInMs(d.data.totalSelfTime) + 'ms',
       'I/O time: ' + timeInMs(d.data.fsTime) + 'ms',
-      'I/O count: ' + d.data.fsCount
+      'I/O count: ' + d.data.fsCount,
     ];
 
     tooltip.text(text.join('\n'));
-    tooltip.style('display', '');
+    tooltip.style('display', 'block');
   }
 
   function timeInMs(ns) {

@@ -7,10 +7,20 @@
       path {
         stroke: white;
       }
+
+      #tooltip {
+        background: white;
+        border: 1px solid black;
+        display: none;
+        padding: 0.3em 0.5em;
+        position: absolute;
+        white-space: pre;
+      }
     </style>
   </head>
 
   <body>
+    <div id="tooltip"></div>
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="broccoli-viz-sunburst.js"></script>
     <script src="broccoli-viz-sunburst.jsonp"></script>
