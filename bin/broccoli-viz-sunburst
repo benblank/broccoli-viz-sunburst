@@ -33,5 +33,5 @@ for (const instrumentationFile of instrumentationFiles) {
   process.stdout.write(`finished in ${timeInMs(process.hrtime(startTime))}ms.\n`);
 }
 
-fs.copy(path.join(__dirname, '..', 'src'), 'dist');
+fs.copySync(path.join(__dirname, '..', 'src'), 'dist');
 fs.writeFileSync(path.join('dist', 'broccoli-viz-sunburst.jsonp'), `loadData(${JSON.stringify(trees)});`, 'utf8');
