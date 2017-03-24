@@ -12,6 +12,12 @@ function loadData(trees) {
   const color = d3.scaleOrdinal(d3.schemeCategory20);
   const partition = d3.partition();
   const tooltip = d3.select('#tooltip');
+  const treeSelector = d3.select('#trees');
+  let svg;
+
+  for (const tree in trees) {
+    treeSelector.append('option').attr('value', tree).text(tree);
+  }
 
   const arc = d3.arc()
     .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x0))); })
@@ -19,25 +25,9 @@ function loadData(trees) {
     .innerRadius(function(d) { return Math.max(0, y(d.y0)); })
     .outerRadius(function(d) { return Math.max(0, y(d.y1)); });
 
-  const svg = d3.select('body').append('svg')
-    .attr('width', width)
-    .attr('height', height)
-    .append('g')
-    .attr('transform', 'translate(' + width / 2 + ',' + (height / 2) + ')');
+  renderTree(trees[treeSelector.property('value')]);
 
-  let root = d3.hierarchy(trees['instrumentation.build.0.json']);
-
-  root.sum(function(d) { return d.selfTime; });
-
-  svg.selectAll('path')
-    .data(partition(root).descendants())
-    .enter().append('path')
-    .attr('d', arc)
-    .style('fill', function(d) { return color(d.data.label); })
-    .on('click', click)
-    .on('mouseover', renderTooltip)
-    .on('mousemove', anchorTooltip)
-    .on('mouseout', hideTooltip);
+  treeSelector.on('change', selectTree);
 
   function anchorTooltip(/* d */) {
     tooltip.style('top', (d3.event.pageY - 10) + 'px');
@@ -76,6 +66,34 @@ function loadData(trees) {
 
     tooltip.text(text.join('\n'));
     tooltip.style('display', 'block');
+  }
+
+  function renderTree(tree) {
+    const root = d3.hierarchy(tree);
+
+    root.sum(function(d) { return d.selfTime; });
+
+    d3.selectAll('svg').remove();
+
+    svg = d3.select('body').append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+      .attr('transform', 'translate(' + width / 2 + ',' + (height / 2) + ')');
+
+    svg.selectAll('path')
+      .data(partition(root).descendants())
+      .enter().append('path')
+      .attr('d', arc)
+      .style('fill', function(d) { return color(d.data.label); })
+      .on('click', click)
+      .on('mouseover', renderTooltip)
+      .on('mousemove', anchorTooltip)
+      .on('mouseout', hideTooltip);
+  }
+
+  function selectTree() {
+    renderTree(trees[d3.event.target.value]);
   }
 
   function timeInMs(ns) {
