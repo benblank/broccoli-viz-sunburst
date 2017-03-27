@@ -1,5 +1,3 @@
-/* eslint-env mocha, node */
-
 'use strict';
 
 const buildTree = require('../lib/build-tree');
