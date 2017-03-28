@@ -1,13 +1,23 @@
 {
   "name": "broccoli-viz-sunburst",
   "version": "1.0.0",
-  "description": "Sunburst visualization of Broccoli instrumentation files using D3.",
+  "description": "Sunburst visualization of Ember CLI instrumentation files using D3.",
+  "homepage": "https://github.com/benblank/broccoli-viz-sunburst",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benblank/broccoli-viz-sunburst.git"
+  },
+  "bugs": "https://github.com/benblank/broccoli-viz-sunburst/issues",
+  "preferGlobal": true,
   "main": "index.js",
   "bin": {
     "broccoli-viz-sunburst": "./bin/broccoli-viz-sunburst"
   },
   "files": [
     "index.js",
+    "LICENSE.md",
+    "README.md",
+    "visualization.png",
     "lib/",
     "src/",
     "bin/"
@@ -18,9 +28,11 @@
   "keywords": [
     "broccoli",
     "broccoli-viz",
-    "d3"
+    "d3",
+    "ember",
+    "ember-cli"
   ],
-  "author": "Ben Blank",
+  "author": "Ben Blank <bblank@linkedin.com>",
   "license": "BSD-3-Clause",
   "dependencies": {
     "fs-extra": "^2.1.2"
