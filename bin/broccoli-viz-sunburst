@@ -29,7 +29,7 @@ if (process.argv.length < 3) {
 
       process.stdout.write(`found ${nodes.length} nodes… `, 'utf8');
 
-      const rootId = typeof nodes[0].id !== 'undefined' ? nodes[0].id : nodes[0]._id;
+      const rootId = typeof nodes[0]._id !== 'undefined' ? nodes[0]._id : nodes[0].id;
       const nodesById = getNodesById(nodes);
 
       trees[instrumentationFile] = buildTree(nodesById, rootId, createNode);
