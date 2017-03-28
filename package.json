@@ -1,6 +1,6 @@
 {
   "name": "broccoli-viz-sunburst",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sunburst visualization of Ember CLI instrumentation files using D3.",
   "homepage": "https://github.com/benblank/broccoli-viz-sunburst",
   "repository": {

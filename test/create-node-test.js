@@ -1,6 +1,8 @@
 'use strict';
 
-const { createNode, getFsStat } = require('../lib/create-node');
+const cn = require('../lib/create-node');
+const createNode = cn.createNode;
+const getFsStat = cn.getFsStat;
 const expect = require('chai').expect;
 
 describe('createNode', () => {
