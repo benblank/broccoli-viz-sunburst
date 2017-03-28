@@ -4,9 +4,15 @@
 
 const fs = require('fs-extra');
 const path = require('path');
-const { buildTree, createNode, getNodesById } = require('..');
+const bvs = require('..');
+const buildTree = bvs.buildTree;
+const createNode = bvs.createNode;
+const getNodesById = bvs.getNodesById;
 
-function timeInMs([seconds, ns]) {
+function timeInMs(time) {
+  const seconds = time[0];
+  const ns = time[1];
+
   return Math.round(seconds * 1e3 + ns / 1e6);
 }
 
