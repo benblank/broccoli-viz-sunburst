@@ -64,7 +64,7 @@ function loadData(trees) {
     const text = [
       d.data.label,
       'Self time: ' + timeInMs(d.data.selfTime) + 'ms',
-      'Total time: ' + timeInMs(d.data.totalSelfTime) + 'ms',
+      'Total time: ' + timeInMs(d.value) + 'ms',
       'I/O time: ' + timeInMs(d.data.fsTime) + 'ms',
       'I/O count: ' + d.data.fsCount,
     ];

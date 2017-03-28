@@ -77,6 +77,6 @@ describe('buildTree', () => {
     buildTree(broccoliNodeMap, 535, createNode, recurse);
 
     expect(createNode.callCount).to.equal(1);
-    expect(createNode.firstCall.args).to.deep.equal([ broccoliNodeMap.get(535), [ d3Node, d3Node ] ]);
+    expect(createNode.firstCall.args).to.deep.equal([ broccoliNodeMap.get(535) ]);
   });
 });
